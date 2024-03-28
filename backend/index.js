@@ -2,15 +2,30 @@ import express, { response } from "express";
 import { port, mongoDBURL } from "./config.js";
 import mongoose from 'mongoose';
 import { graph } from "./models/dashboardData.js";
+import cors from 'cors'; 
 
 const app=express();
 
 app.use(express.json());
-app.get('/',(req,res)=>{
+app.use(cors());
+/* app.use(
+  cors({
+    origin:'https://localhost:3000',
+    methods:['PUT','GET','POST','DELETE'],
+    allowedHeaders:['Content-Type']
+  }
+  )
+)*/
+
+app.get('/dummy',(req,res)=>{
   console.log(req);
   return res.status(234).send('Hey there');
 })
 
+app.get('/dummyroute',(req,res)=>{
+  console.log(req);
+  return res.status(234).send('Hello again there');
+})
 //Route to save a new JSON file to be displayed on dashboard
 app.post('/graphs', async (req,res)=>{
 try{
